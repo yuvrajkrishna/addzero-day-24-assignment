@@ -20,36 +20,56 @@ public class optimizedstud {
 }
 
 
-class Student{
+class Student {
+
     int rn;
     String name;
-    int m1,m2,m3,tm;
-    public Student(int rn,String name,int m1,int m2,int m3){
+    int m1, m2, m3, tm;
+
+    public Student(int rn, String name, int m1, int m2, int m3) {
+
         this.rn = rn;
         this.name = name;
         this.m1 = m1;
         this.m2 = m2;
         this.m3 = m3;
-        tm = m1+m2+m3;
+
+        tm = m1 + m2 + m3;
     }
-    public void printDetails(){
-        System.out.println("Name : "+name +" " +tm );
+
+    public void printDetails() {
+        System.out.println("Name : " + name + " " + tm);
     }
-    public Student[] getTop3(Student[]st){
-        Student top3[] = new Student[3];
-        for(int i = 0 ; i < st.length-1; i++){
-            for(int j = 0 ; j < st.length-1-i;j++){
-                if(st[j].tm < st[j+1].tm){
-                    Student temp = st[j];
-                    st[j] = st[j+1];
-                    st[j+1] = temp;
-                }
+
+    public Student[] getTop3(Student[] st) {
+
+        Student first = null;
+        Student second = null;
+        Student third = null;
+
+        for (int i = 0; i < st.length; i++) {
+
+            if (first == null || st[i].tm > first.tm) {
+
+                third = second;
+                second = first;
+                first = st[i];
+
+            }
+            else if (second == null || st[i].tm > second.tm) {
+
+                third = second;
+                second = st[i];
+
+            }
+            else if (third == null || st[i].tm > third.tm) {
+
+                third = st[i];
             }
         }
-        top3[0] = st[0];
-        top3[1] = st[1];
-        top3[2] = st[2];
-        return top3;
 
+        Student[] top3 = {first, second, third};
+
+        return top3;
     }
 }
